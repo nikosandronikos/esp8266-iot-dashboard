@@ -29,6 +29,13 @@ const int mqttPort;
 ```
 
 ## Build and flash
+Load into the Arduino IDE, or use the makefile.
+
+The make file depends on the ESP8266 makefile from https://github.com/plerup/makeEspArduino.
+Check out the above project and update the local makefile to point to `makeEspArduino.mk` from
+that repository.
+
+Then:
 `make flash`
 
 ### HW test firmware
