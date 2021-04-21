@@ -95,7 +95,7 @@ bool checkMQTTConnection() {
 void mqttSubCallback(const char *topic, byte *payload, unsigned int length) {
     Serial.printf("topic: %s (%d bytes)\n", topic, length);
 
-    unsigned long topicHash = hash(topic);
+    unsigned long topicHash = strHash(topic);
 
     if (topicHash == garageOccupancyTopic) {
         garageOccupancy = strStartsWith((char *)payload, "on") ? true : false; // on or off
