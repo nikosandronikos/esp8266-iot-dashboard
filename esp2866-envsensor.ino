@@ -77,7 +77,7 @@ bool checkMQTTConnection() {
 
         if (client.connect(mqttClientId.c_str(), mqttUser, mqttPass, willTopic.c_str(), 1, true, "offline")) {
             Serial.printf("MQTT connected\n");
-            client.publish(willTopic.c_str(), "online");
+            client.publish(willTopic.c_str(), "online", true);
 
             client.subscribe("homeassistant/garageOccupancy", 1);
             client.subscribe("homeassistant/status", 1);
