@@ -27,6 +27,8 @@ PubSubClient client(espClient);
 #define NUM_SWITCH  4
 int switchAddr[NUM_SWITCH] = {D1, D2, D5, D7};//, D6, D2, D5};
 bool switchStates[NUM_SWITCH];
+bool switchToggle[NUM_SWITCH];
+long switchTime[NUM_SWITCH];
 
 #define NUM_LED 1
 int ledAddr[NUM_LED] = {D8}; //{D0, D8};
@@ -125,9 +127,19 @@ void setupLeds() {
 void ICACHE_RAM_ATTR handleSwitchChange() {
     Serial.println("Switch interrupt");
     for (int i = 0; i < NUM_SWITCH; i++) {
-        switchStates[i] = digitalRead(switchAddr[i]);
-        Serial.printf("  %d: %s\n", i, switchStates[i] ? "on" : "off");
-    }
+        bool curState = digitalRead(switchAddr[i]);
+        if (curState != switchStates[i]) {
+            // state changed
+            if (!curState) {
+                // Toggle on release
+                switchToggle[i] = !switchToggle[i];
+            }
+            switchStates[i] = curState;
+
+            Serial.printf("Switch state: %d: %s\n", i, switchStates[i] ? "on" : "off");
+            Serial.printf("      toggle: %d: %s\n", i, switchToggle[i] ? "on" : "off");
+         }
+   }
 }
 
 void setupSwitches() {
@@ -242,7 +254,7 @@ void loop() {
     boolean alert = !gwOnline || !hassOnline || garageOccupancy;
 
     displayOn = switchStates[0] || alert;
-    ledsOn = switchStates[1];
+    ledsOn = switchToggle[1];
 
     ledStates[0] = ledsOn && alert;
 
