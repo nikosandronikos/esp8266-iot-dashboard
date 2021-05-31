@@ -34,7 +34,7 @@ float temperature, humidity;
 
 void updateLeds() {
     for (int i = 0; i < NUM_LED; i++) {
-        digitalWrite(ledAddr[i], ledStates[i] ? 0xFF : 0);
+        analogWrite(ledAddr[i], ledStates[i] ? 0x10 : 0);
     }
 }
 

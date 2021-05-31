@@ -46,6 +46,8 @@ SSD1306Wire display(0x3c, DISPLAY_SDA, DISPLAY_SCL);
 
 unsigned long lastMs = 0;
 
+#define LED_BRIGHTNESS 0x7F
+
 /// IOT STATE ////////////////////////////////////
 
 bool displayOn = false, ledsOn = false;
@@ -114,7 +116,7 @@ void mqttSubCallback(const char *topic, byte *payload, unsigned int length) {
 
 void updateLeds() {
     for (int i = 0; i < NUM_LED; i++) {
-        digitalWrite(ledAddr[i], ledStates[i] ? 0xFF : 0);
+        analogWrite(ledAddr[i], ledStates[i] ? LED_BRIGHTNESS : 0);
     }
 }
 
