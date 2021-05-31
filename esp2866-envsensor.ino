@@ -24,8 +24,8 @@ PubSubClient client(espClient);
 #define MAX_PAYLOAD_PERIOD_MS (unsigned long)300000
 
 /// HARDWARE //////////////////////////////
-#define NUM_SWITCH  4
-int switchAddr[NUM_SWITCH] = {D1, D2, D5, D7};//, D6, D2, D5};
+#define NUM_SWITCH  5
+int switchAddr[NUM_SWITCH] = {D2, D5, D6, D7, D1};//, D6, D2, D5};
 bool switchStates[NUM_SWITCH];
 bool switchToggle[NUM_SWITCH];
 long switchTime[NUM_SWITCH];
@@ -37,7 +37,7 @@ bool ledStates[NUM_LED];
 #define DISPLAY_SCL D4
 #define DISPLAY_SDA D3
 
-#define DHT11_S D6
+#define DHT11_S D0
 
 DHTesp dht;
 int dhtPeriod;
